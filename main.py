@@ -6,6 +6,7 @@ from linealgorithm import generatePixel
 
 width, height = 500, 800
 handler_x = 0
+handler_y = 0
 handler_x_left = 150
 handler_x_right = 150
 
@@ -97,34 +98,35 @@ def drawCross():
     drawLineDDA(x_list, y_list)
 
 
-def drawBullet():
+def drawBullet(y):
     # drawing the cross
-    x1, y1 = 350, 440
-    x2, y2 = 340, 420
+    x1, y1 = 350, 740+y
+    x2, y2 = 340, 720+y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-    x1, y1 = 350, 440
-    x2, y2 = 360, 420
+    x1, y1 = 350, 740+y
+    x2, y2 = 360, 720+y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
     # drawing the cross
-    x1, y1 = 340, 420
-    x2, y2 = 350, 400
+    x1, y1 = 340, 720+y
+    x2, y2 = 350, 700+y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-    x1, y1 = 360, 420
-    x2, y2 = 350, 400
+    x1, y1 = 360, 720+y
+    x2, y2 = 350, 700+y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
 
 def display():
+    print("hello")
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
     interate()
 
-    drawBullet()
+    drawBullet(handler_y)
     drawCross()
     drawHandler(handler_x)
     drawPause()
@@ -143,6 +145,11 @@ def handle_keys(key, x, y):
         handler_x += 5
     glutPostRedisplay()
 
+
+def animateBullet():
+    global handler_y
+    handler_y -= 5
+    glutPostRedisplay()
 
 if __name__ == "__main__":
     glutInit()  # Initialize GLUT
