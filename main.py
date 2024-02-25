@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 
-# Window dimensions
 from linealgorithm import generatePixel
 
 width, height = 500, 800
@@ -9,6 +8,7 @@ handler_x = 0
 handler_y = 0
 handler_x_left = 150
 handler_x_right = 150
+bullet_y = 0
 
 
 def interate():
@@ -60,26 +60,21 @@ def drawPause():
 def drawHandler(x):
     global handler_x_left
     global handler_x_right
-
     glColor3f(0.0, 1.0, 0.0)
     x1, y1 = 160 + x, 15
     x2, y2 = 290 + x, 15
-
     handler_x_left = x1
     handler_x_right = x2
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-
     x1, y1 = 170 + x, 25
     x2, y2 = 280 + x, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-
     x1, y1 = 160 + x, 15
     x2, y2 = 170 + x, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-
     x1, y1 = 290 + x, 15
     x2, y2 = 280 + x, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
@@ -121,12 +116,10 @@ def drawBullet(y):
 
 
 def display():
-    print("hello")
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
     interate()
-
-    drawBullet(handler_y)
+    drawBullet(bullet_y)
     drawCross()
     drawHandler(handler_x)
     drawPause()
@@ -139,26 +132,26 @@ def handle_keys(key, x, y):
     global handler_x_left
     global handler_x_right
     if key == GLUT_KEY_LEFT and handler_x_left >= 0:
-        # Block the handler if it's at the leftmost position
         handler_x -= 5
     elif key == GLUT_KEY_RIGHT and handler_x_right < 500:
         handler_x += 5
     glutPostRedisplay()
 
 
-def animateBullet():
-    global handler_y
-    handler_y -= 5
+def animateBullet(value):
+    global bullet_y
+    bullet_y -= 5
     glutPostRedisplay()
+    glutTimerFunc(100, animateBullet, 0)  # Recursive call to keep animating the bullet
+
 
 if __name__ == "__main__":
-    glutInit()  # Initialize GLUT
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE)  # Add GLUT_DOUBLE for double buffering
+    glutInit()
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE)
     glutInitWindowSize(width, height)
     glutInitWindowPosition(0, 0)
     wind = glutCreateWindow("DDA Line")
-
-    # Register display function
     glutDisplayFunc(display)
     glutSpecialFunc(handle_keys)
+    glutTimerFunc(0, animateBullet, 0)  # Start bullet animation
     glutMainLoop()
