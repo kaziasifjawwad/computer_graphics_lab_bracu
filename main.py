@@ -9,6 +9,7 @@ handler_y = 0
 handler_x_left = 150
 handler_x_right = 150
 bullet_y = 0
+handler_upper_range = 15
 
 
 def interate():
@@ -58,11 +59,12 @@ def drawPause():
 
 
 def drawHandler(x):
+    global handler_upper_range
     global handler_x_left
     global handler_x_right
     glColor3f(0.0, 1.0, 0.0)
-    x1, y1 = 160 + x, 15
-    x2, y2 = 290 + x, 15
+    x1, y1 = 160 + x, handler_upper_range
+    x2, y2 = 290 + x, handler_upper_range
     handler_x_left = x1
     handler_x_right = x2
     x_list, y_list = generatePixel(x1, y1, x2, y2)
@@ -94,25 +96,32 @@ def drawCross():
 
 
 def drawBullet(y):
+    global handler_upper_range
+    global handler_x_left
+    global handler_x_right
+
     # drawing the cross
-    x1, y1 = 350, 740+y
-    x2, y2 = 340, 720+y
+    x1, y1 = 350, 740 + y
+    x2, y2 = 340, 720 + y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-    x1, y1 = 350, 740+y
-    x2, y2 = 360, 720+y
+    x1, y1 = 350, 740 + y
+    x2, y2 = 360, 720 + y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
     # drawing the cross
-    x1, y1 = 340, 720+y
-    x2, y2 = 350, 700+y
+    x1, y1 = 340, 720 + y
+    x2, y2 = 350, 700 + y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-    x1, y1 = 360, 720+y
-    x2, y2 = 350, 700+y
+    x1, y1 = 360, 720 + y
+    x2, y2 = 350, 700 + y
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
+
+    if x2 >= handler_x_left and x2 <= handler_x_right and y2 == handler_upper_range:
+        print("done")
 
 
 def display():
