@@ -5,6 +5,9 @@ from OpenGL.GLUT import *
 from linealgorithm import generatePixel
 
 width, height = 500, 800
+handler_x = 0
+handler_x_left = 150
+handler_x_right = 150
 
 
 def interate():
@@ -53,24 +56,31 @@ def drawPause():
     drawLineDDA(x_list, y_list)
 
 
-def drawHandler():
+def drawHandler(x):
+    global handler_x_left
+    global handler_x_right
+
     glColor3f(0.0, 1.0, 0.0)
-    x1, y1 = 160, 15
-    x2, y2 = 290, 15
-    x_list, y_list = generatePixel(x1, y1, x2, y2)
-    drawLineDDA(x_list, y_list)
-    x1, y1 = 170, 25
-    x2, y2 = 280, 25
+    x1, y1 = 160 + x, 15
+    x2, y2 = 290 + x, 15
+
+    handler_x_left = x1
+    handler_x_right = x2
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
-    x1, y1 = 160, 15
-    x2, y2 = 170, 25
+    x1, y1 = 170 + x, 25
+    x2, y2 = 280 + x, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
-    x1, y1 = 290, 15
-    x2, y2 = 280, 25
+    x1, y1 = 160 + x, 15
+    x2, y2 = 170 + x, 25
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+
+    x1, y1 = 290 + x, 15
+    x2, y2 = 280 + x, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
@@ -116,10 +126,22 @@ def display():
 
     drawBullet()
     drawCross()
-    drawHandler()
+    drawHandler(handler_x)
     drawPause()
     drawArrowSign()
     glutSwapBuffers()
+
+
+def handle_keys(key, x, y):
+    global handler_x
+    global handler_x_left
+    global handler_x_right
+    if key == GLUT_KEY_LEFT and handler_x_left >= 0:
+        # Block the handler if it's at the leftmost position
+        handler_x -= 5
+    elif key == GLUT_KEY_RIGHT and handler_x_right < 500:
+        handler_x += 5
+    glutPostRedisplay()
 
 
 if __name__ == "__main__":
@@ -131,5 +153,5 @@ if __name__ == "__main__":
 
     # Register display function
     glutDisplayFunc(display)
-
+    glutSpecialFunc(handle_keys)
     glutMainLoop()
