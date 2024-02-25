@@ -23,21 +23,9 @@ def drawLineDDA(x_list, y_list):
     glEnd()
 
 
-def showScreen():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    interate()
-    glColor3f(0.0, 1.0, 0.0)
-    # drawing the cross
-    x1, y1 = 440, 780
-    x2, y2 = 480, 740
-    x_list, y_list = generatePixel(x1, y1, x2, y2)
-    drawLineDDA(x_list, y_list)
-    x1, y1 = 480, 780
-    x2, y2 = 440, 740
-    x_list, y_list = generatePixel(x1, y1, x2, y2)
-    drawLineDDA(x_list, y_list)
 
+def drawArrowSign():
+    glColor3f(0.0, 1.0, 0.0)
     # Arrow sign
     x1, y1 = 50, 780
     x2, y2 = 20, 760
@@ -52,6 +40,9 @@ def showScreen():
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
+
+def drawPause():
+    glColor3f(0.0, 1.0, 0.0)
     # Start pause
     x1, y1 = 230, 780
     x2, y2 = 230, 740
@@ -62,8 +53,8 @@ def showScreen():
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
-
-    # Start pause
+def drawHandler():
+    glColor3f(0.0, 1.0, 0.0)
     x1, y1 = 160, 15
     x2, y2 = 290, 15
     x_list, y_list = generatePixel(x1, y1, x2, y2)
@@ -74,8 +65,29 @@ def showScreen():
     drawLineDDA(x_list, y_list)
 
 
+def drawCross():
+    # drawing the cross
+    x1, y1 = 440, 780
+    x2, y2 = 480, 740
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+    x1, y1 = 480, 780
+    x2, y2 = 440, 740
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+
+
+
+
 def display():
-    showScreen()
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    interate()
+
+    drawCross()
+    drawHandler()
+    drawPause()
+    drawArrowSign()
     glutSwapBuffers()
 
 
