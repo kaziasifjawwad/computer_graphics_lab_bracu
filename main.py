@@ -23,7 +23,6 @@ def drawLineDDA(x_list, y_list):
     glEnd()
 
 
-
 def drawArrowSign():
     glColor3f(0.0, 1.0, 0.0)
     # Arrow sign
@@ -53,14 +52,25 @@ def drawPause():
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
+
 def drawHandler():
     glColor3f(0.0, 1.0, 0.0)
     x1, y1 = 160, 15
     x2, y2 = 290, 15
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
-    x1, y1 = 160, 25
-    x2, y2 = 290, 25
+    x1, y1 = 170, 25
+    x2, y2 = 280, 25
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+
+    x1, y1 = 160, 15
+    x2, y2 = 170, 25
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+
+    x1, y1 = 290, 15
+    x2, y2 = 280, 25
     x_list, y_list = generatePixel(x1, y1, x2, y2)
     drawLineDDA(x_list, y_list)
 
@@ -77,6 +87,26 @@ def drawCross():
     drawLineDDA(x_list, y_list)
 
 
+def drawBullet():
+    # drawing the cross
+    x1, y1 = 350, 440
+    x2, y2 = 340, 420
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+    x1, y1 = 350, 440
+    x2, y2 = 360, 420
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+
+    # drawing the cross
+    x1, y1 = 340, 420
+    x2, y2 = 350, 400
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
+    x1, y1 = 360, 420
+    x2, y2 = 350, 400
+    x_list, y_list = generatePixel(x1, y1, x2, y2)
+    drawLineDDA(x_list, y_list)
 
 
 def display():
@@ -84,6 +114,7 @@ def display():
     glLoadIdentity()
     interate()
 
+    drawBullet()
     drawCross()
     drawHandler()
     drawPause()
