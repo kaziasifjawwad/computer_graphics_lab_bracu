@@ -14,8 +14,8 @@ handler_x_left = 150
 handler_x_right = 150
 bullet_y = 0
 handler_upper_range = 15
-initial_diamond_value_x = random.randint(0, 500)
-initial_diamond_value_y = 740
+initial_circle_value_x = random.randint(0, 500)
+initial_circle_value_y = 740
 
 
 def interate():
@@ -105,8 +105,8 @@ def drawBullet(y):
     global handler_upper_range
     global handler_x_left
     global handler_x_right
-    global initial_diamond_value_x
-    global initial_diamond_value_y
+    global initial_circle_value_x
+    global initial_circle_value_y
     global bullet_y
     # drawing the cross
     x1, y1 = initial_diamond_value_x, initial_diamond_value_y + y
