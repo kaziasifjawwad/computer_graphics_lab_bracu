@@ -29,7 +29,8 @@ handler_center_y = 0
 is_up_key_pressed = False
 is_bullet_exists = True
 is_bullet_clashed = False
-
+total_score = 0
+failed_attempt = 0
 
 def interate():
     glViewport(0, 0, width, height)
@@ -172,12 +173,14 @@ def fireBullet():
     global bullet_y
     global is_bullet_clashed
     global initial_circle_value_x
+    global total_score
     initial_bullet_y = handler_center_y + bullet_speed
     x_list, y_list = generatePixelForCircle(targetBulletSize, initial_bullet_x, initial_bullet_y)
     drawDots(x_list, y_list)
     if (circles_touch_or_overlap(initial_bullet_x, initial_bullet_y, targetBulletSize,
                                  initial_circle_value_x, initial_circle_value_y + bullet_y, targetBulletSize)):
-        print("match")
+        total_score+=1
+        print("Total score {}".format(total_score))
         is_bullet_clashed = True
         is_up_key_pressed = False
         is_bullet_exists = True
