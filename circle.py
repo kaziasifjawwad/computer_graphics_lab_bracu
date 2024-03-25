@@ -16,7 +16,7 @@ bullet_y = 0
 handler_upper_range = 15
 initial_diamond_value_x = random.randint(0, 500)
 initial_diamond_value_y = 740
-
+targetBulletSize = 15
 
 def interate():
     glViewport(0, 0, width, height)
@@ -95,25 +95,15 @@ def drawBullet(y):
     global initial_diamond_value_x
     global initial_diamond_value_y
     global bullet_y
+    global targetBulletSize
     # drawing the cross
     x1, y1 = initial_diamond_value_x, initial_diamond_value_y + y
-    x_list, y_list = generatePixelForCircle(5,x1, y1)
+    x_list, y_list = generatePixelForCircle(targetBulletSize,x1, y1)
     drawDots(x_list, y_list)
-    x1, y1 = initial_diamond_value_x, initial_diamond_value_y + y
-    x_list, y_list = generatePixelForCircle(5,x1, y1)
-    drawDots(x_list, y_list)
-
-    # drawing the cross
-    x1, y1 = initial_diamond_value_x - 10, initial_diamond_value_y - 20 + y
-    x_list, y_list = generatePixelForCircle(5,x1, y1)
-    drawDots(x_list, y_list)
-    x1, y1 = initial_diamond_value_x + 10, initial_diamond_value_y - 20 + y
-    x_list, y_list = generatePixelForCircle(5,x1, y1)
-    drawDots(x_list, y_list)
-
-    # if x2 >= handler_x_left and x2 <= handler_x_right and y2 == handler_upper_range:
-    #     initial_diamond_value_x = random.randint(0, 500)
-    #     bullet_y = 0
+    print(y1)
+    if y1<0:
+        initial_diamond_value_x = random.randint(0, 500)
+        bullet_y = 0
 
 
 def display():
